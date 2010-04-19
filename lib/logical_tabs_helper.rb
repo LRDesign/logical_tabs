@@ -1,32 +1,5 @@
-module LogicalTabsHelper                                    
-  
-  class TabbedPanel  
-
-    def initialize(view)
-      @view = view 
-      @tabs = []
-    end
-
-    def add_tab(name, &block)       
-      # debugger  
-      body = v.capture(&block)
-      @tabs << { :name => name, :body => body }
-    end
-         
-    def tabs
-      v.content_tag(:ul, 
-        @tabs.map{ |tab| v.content_tag(:li, tab[:name], :class => 'tab') }.join,
-        :class => 'tabs'
-      )
-    end
-    def panels      
-      @tabs.map{ |tab| v.content_tag(:div, tab[:body], :class => 'panel') }.join
-    end 
-    
-    # shortcut to the View
-    def v; @view end
-    
-  end
+module LogicalTabsHelper                                      
+  require 'tabbed_panel'
   
   def create_tabbed_panel(&block)
     tabbed_panel = TabbedPanel.new(self)
