@@ -20,5 +20,20 @@ describe TabPane do
       tp = TabPane.new(@tp, "Foo", :base_id => 'bar')        
       tp.base_id.should == 'bar'      
     end
+    it "should set the default tab text" do
+      tp = TabPane.new(@tp, "Foo")        
+      tp.tab_text.should == "Foo"
+    end
+    it "should set override tab text" do
+      tp = TabPane.new(@tp, "Foo", :tab_text => "Bloop (3)")        
+      tp.tab_text.should == "Bloop (3)"
+    end
+    it "should set the content" do
+      tp = TabPane.new(@tp, "Foo", :content => "Lorem Ipsum")        
+      tp.content.should == "Lorem Ipsum"
+    end
+    
   end
+  
+  
 end

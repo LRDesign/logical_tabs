@@ -2,7 +2,7 @@ require 'tabbed_panel'
 
 # This contains the info for a single tab and pane
 class TabPane
-  attr_accessor :tabbed_panel, :name, :base_id, :content
+  attr_accessor :tabbed_panel, :name, :base_id, :content, :tab_text, :pane_content
 
   # tabbed_panel must be an instance of TabbedPanel
   #
@@ -13,13 +13,18 @@ class TabPane
   #             IDs for the tab and pane.  :base_id => 'foo' will
   #             generate a tab with ID 'foo_tab' and a panel with ID
   #             'foo_panel'.  Defaults to name.downcase
-  #   :text     The text to display in the tab.  Defaults to name.
+  #
+  #   :tab_text The text to display in the tab.  Defaults to name.
+  #
   #   :content  The content for the panel itseld, in HTML
   #              
   def initialize(tabbed_panel, name, options = {})
     @tabbed_panel = tabbed_panel
     @name = name
     @base_id = options[:base_id] || name.downcase
-    
+    @tab_text = options[:tab_text] || name
+    @content = options[:content] || ''
   end
+  
+  
 end
