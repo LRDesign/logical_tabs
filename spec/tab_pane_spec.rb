@@ -16,5 +16,9 @@ describe TabPane do
       tp = TabPane.new(@tp, "Foo")        
       tp.base_id.should == 'foo'
     end
+    it "should allow override of base_id" do
+      tp = TabPane.new(@tp, "Foo", :base_id => 'bar')        
+      tp.base_id.should == 'bar'      
+    end
   end
 end
