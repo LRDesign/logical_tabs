@@ -1,6 +1,6 @@
 
+require 'spec_helper'
 require 'logical_tabs/tab_pane'
-require 'action_view'
 
 describe LogicalTabs::TabPane do
   before(:each) do
@@ -38,7 +38,9 @@ describe LogicalTabs::TabPane do
     before(:each) do
       @tp = LogicalTabs::TabPane.new(@tp, "Foo", :content => "Lorem Ipsum")              
     end
-    it "should generate an li tag" do
+    it "should generate an li tag" do   
+      p self.class
+      debugger
       @tp.render_tab.should have_tag("li")
     end
   end

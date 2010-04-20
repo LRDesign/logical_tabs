@@ -1,6 +1,6 @@
 
+require 'spec_helper'
 require 'logical_tabs/tabbed_panel'
-require 'action_view'
 
 describe LogicalTabs::TabbedPanel do
   before(:each) do

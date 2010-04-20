@@ -5,14 +5,14 @@ rescue LoadError
   exit
 end
 
-require 'spec/rails'
+# require 'spec/rails'
 
 plugin_spec_dir = File.dirname(__FILE__)
 ActiveRecord::Base.logger = Logger.new(plugin_spec_dir + "/debug.log")
 
-module ActiveSupport
-  class TestCase
-    include ::Spec::Rails::Matchers
-    include ::Spec::Rails::Mocks
-  end
-end
+# module ActiveSupport
+#   class TestCase
+#     include ::Spec::Rails::Matchers
+#     include ::Spec::Rails::Mocks
+#   end
+# end
