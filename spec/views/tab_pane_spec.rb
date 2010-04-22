@@ -48,10 +48,10 @@ describe LogicalTabs::TabPane do
       @tp.render_tab.should have_tag("li.tab")            
     end
     it "should have class 'unselected' by default" do
-      @tp.render_tab.should have_tag("li.unselected")            
+      @tp.render_tab.should have_tag("li.tab_unselected")            
     end
     it "should have class 'selected' when called with selected = true" do
-      @tp.render_tab(true).should have_tag("li.selected")            
+      @tp.render_tab(true).should have_tag("li.tab_selected")            
     end    
   end
   
@@ -71,12 +71,12 @@ describe LogicalTabs::TabPane do
     it "should set the class to 'pane'" do
       @tp.render_pane.should have_tag("div.pane")      
     end
-    it "should set the display to none by default" do
-      @tp.render_pane.should have_tag("div[style=display:none;]")      
+    it "should set the class to 'pane_unselected' by default" do
+      @tp.render_pane.should have_tag("div.pane_unselected")            
     end
-    it "should set the display to block when selected" do
-      @tp.render_pane(true).should have_tag("div[style=display:block;]")      
-    end    
+    it "should set the class to 'pane_selected' if rendered selected" do
+      @tp.render_pane(true).should have_tag("div.pane_selected")            
+    end
   end
   
 end

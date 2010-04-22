@@ -50,7 +50,11 @@ module LogicalTabs
     def render_panels      
       @tabs.map{ |tab| tab.render_panel }.join
     end 
-
+    
+    def render
+      render_tabs + render_panels
+    end
+    
     # For the moment, the first tab is the one selected
     def selected_tab
       @tabs.first

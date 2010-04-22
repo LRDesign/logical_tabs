@@ -33,7 +33,7 @@ module LogicalTabs
       v.content_tag(:li, 
         @tab_text, 
         :id => @base_id + "_tab",
-        :class => "tab " + (selected ? "selected" : "unselected") 
+        :class => "tab " + (selected ? "tab_selected" : "tab_unselected") 
       )
     end
     
@@ -44,8 +44,7 @@ module LogicalTabs
       v.content_tag(:div,
         @content,
         :id => @base_id + "_pane",
-        :class => "pane",
-        :style => "display:#{selected ? 'block' : 'none'};"
+        :class => "pane " + (selected ? "pane_selected" : "pane_unselected") 
       )
     end
   
