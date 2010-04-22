@@ -58,12 +58,20 @@ module LogicalTabs
     end
 
     # Render a sequence of DIVs containing the panes.
-    def render_panes      
-      @tabs.map{ |tab| tab.render_pane(selected?(tab)) }.join
+    def render_panes
+      v.content_tag(:div, 
+        @tabs.map{ |tab| tab.render_pane(selected?(tab)) }.join,
+        :class => 'panes'
+      )            
     end 
     
-    def render
-      render_tabs + render_panels
+    # render the entire tabbed panel and all contents.
+    def render  
+      v.content_tag(:div,
+        render_tabs + render_panes,
+        :id => @base_id,
+        :class => 'tabbed_panel'        
+      )    
     end
     
     # For the moment, the first tab is the one selected

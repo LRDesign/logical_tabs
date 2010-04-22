@@ -36,10 +36,25 @@ describe LogicalTabs::TabbedPanel do
   
   describe "rendering the output" do
     before(:each) do
+      LogicalTabs::TabbedPanel.panel_count = 0      
       @panel = LogicalTabs::TabbedPanel.new(@view)
       @panel.add_tab('foo', :content => "Lorem ipsum")  
       @panel.add_tab('bar', :content => "dolor sit amet.")  
     end
+    
+    describe "rendering the whole panel" do
+      before(:each) { @output = @panel.render }
+      it "should render an outer div" do
+        @output.should have_tag('div#tabbed_panel_0.tabbed_panel')
+      end
+      it "should render an outer div containing the tabs and panes" do        
+        @output.should have_tag('div#tabbed_panel_0') do
+          with_tag('ul.tabs')
+          with_tag('div.panes')
+        end        
+      end
+    end
+    
     describe "rendering tabs" do
       before(:each) do
         @output = @panel.render_tabs
@@ -58,13 +73,19 @@ describe LogicalTabs::TabbedPanel do
         @output.should have_tag('li#bar_tab.tab_unselected')        
       end
     end
+    
     describe "rendering the panes" do
       before(:each) do
         @output = @panel.render_panes
       end
+      it "should render an outer div of class panes" do
+        @output.should have_tag('div.panes')
+      end
       it "should render a div for each tab" do
-        @output.should have_tag('div#foo_pane')
-        @output.should have_tag('div#bar_pane')
+        @output.should have_tag('div.panes') do         
+          with_tag('div#foo_pane')
+          with_tag('div#bar_pane')
+        end
       end
       it "should render the first div selected by default" do
         @output.should have_tag('div#foo_pane.pane_selected')
