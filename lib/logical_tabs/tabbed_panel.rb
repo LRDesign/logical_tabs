@@ -3,13 +3,7 @@ module LogicalTabs
   end
   
   # a collection of tabs with their associated panes, I.E. a tabbed panel
-  class TabbedPanel  
-    @@panel_count = 0
-
-    def TabbedPanel.panel_count=(x)
-      @@panel_count = x
-    end    
-    
+  class TabbedPanel      
     attr_reader :tabs, :base_id
     
     # view must be an instance of ActionView::Base.   This class 
@@ -17,9 +11,14 @@ module LogicalTabs
     def initialize(view, options = {})
       @view = view 
       @tabs = []
-      @base_id = options[:base_id] || "tabbed_panel_#{@@panel_count}"        
-      @@panel_count+=1   
+      @base_id = options[:base_id] || build_generic_id(options)
     end
+
+    def build_generic_id(options)
+      base_id = "tabbed_panel"
+      base_id += "_#{options[:seq]}" if options[:seq]
+      base_id
+    end  
 
     # Add a new tab (with pane) to this tabbed panel.   Either pass
     # a block with the content for the panel, or pass :content => 'my_content'.

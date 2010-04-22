@@ -22,7 +22,7 @@ module LogicalTabs
     def initialize(tabbed_panel, name, options = {})
       @tabbed_panel = tabbed_panel
       @name = name
-      @base_id = options[:base_id] || name.downcase
+      @base_id = options[:base_id] || name.underscore.gsub(/\s+/,'_')
       @tab_text = options[:tab_text] || name
       @content = options[:content] || ''
     end
@@ -32,23 +32,28 @@ module LogicalTabs
     def render_tab(selected = false)
       v.content_tag(:li,
         tab_link,
-        :id => @base_id + "_tab",
+        :id => composite_id + "_tab",
         :class => "tab " + (selected ? "tab_selected" : "tab_unselected") 
       )
     end
     
 
     def tab_link
-      v.content_tag(:a, @tab_text, :href => '#' )
+      v.content_tag(:a, @tab_text, :href => '#', :class => 'tab_link' )
     end
     
+    # generates an ID for this tab_pane that includes the base_id of the
+    # containing tabbed_panel and the base_id of this tab_pane.
+    def composite_id
+      @tabbed_panel.base_id + "_tp_" + @base_id      
+    end        
 
     # Generates HTML output for the panel
     # Pass "true" to set this as the selected/visible panel
     def render_pane(selected = false)
       v.content_tag(:div,
         @content,
-        :id => @base_id + "_pane",
+        :id => composite_id + "_pane",
         :class => "pane " + (selected ? "pane_selected" : "pane_unselected") 
       )
     end

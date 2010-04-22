@@ -16,6 +16,10 @@ describe LogicalTabs::TabPane do
       tp = LogicalTabs::TabPane.new(@tp, "Foo")        
       tp.base_id.should == 'foo'
     end
+    it "should snake case the default base_id" do
+      tp = LogicalTabs::TabPane.new(@tp, "Foo Bar")        
+      tp.base_id.should == "foo_bar"
+    end
     it "should allow override of base_id" do
       tp = LogicalTabs::TabPane.new(@tp, "Foo", :base_id => 'bar')        
       tp.base_id.should == 'bar'      
@@ -34,53 +38,62 @@ describe LogicalTabs::TabPane do
     end    
   end
   
+  describe "tab_link" do
+    before(:each) do
+      @tab_pane = LogicalTabs::TabPane.new(@tp, "Foo", :content => "Lorem Ipsum", :base_id => 'bar')              
+    end
+    it "should generate a link with the right class" do
+      @tab_pane.tab_link.should have_tag("a.tab_link")
+    end
+  end
+  
   describe "render_tab" do
     before(:each) do
-      @tp = LogicalTabs::TabPane.new(@tp, "Foo", :content => "Lorem Ipsum", :base_id => 'bar')              
+      @tab_pane = LogicalTabs::TabPane.new(@tp, "Foo", :content => "Lorem Ipsum", :base_id => 'bar')              
     end
     it "should generate an li tag with the text" do   
-      @tp.render_tab.should have_tag("li", :text => @tp.tab_text)
+      @tab_pane.render_tab.should have_tag("li", :text => @tab_pane.tab_text)
     end
-    it "should render the correct id " do
-      @tp.render_tab.should have_tag("li#bar_tab")      
+    it "should render the correct id, including prefix from the panel" do
+      @tab_pane.render_tab.should have_tag("li##{@tp.base_id}_tp_bar_tab")      
     end
     it "should have class 'tab'" do
-      @tp.render_tab.should have_tag("li.tab")            
+      @tab_pane.render_tab.should have_tag("li.tab")            
     end
     it "should have class 'unselected' by default" do
-      @tp.render_tab.should have_tag("li.tab_unselected")            
+      @tab_pane.render_tab.should have_tag("li.tab_unselected")            
     end
     it "should have class 'selected' when called with selected = true" do
-      @tp.render_tab(true).should have_tag("li.tab_selected")            
+      @tab_pane.render_tab(true).should have_tag("li.tab_selected")            
     end   
     it "should have an li tag with a link to #" do      
-      @tp.render_tab.should have_tag("li") do
-        with_tag("a[href=#]", :text => @tp.tab_text)
+      @tab_pane.render_tab.should have_tag("li") do
+        with_tag("a[href=#]", :text => @tab_pane.tab_text)
       end      
     end 
   end
   
   describe "render_pane" do
     before(:each) do
-      @tp = LogicalTabs::TabPane.new(@tp, "Foo", :content => "Lorem Ipsum", :base_id => 'bar')              
+      @tab_pane = LogicalTabs::TabPane.new(@tp, "Foo", :content => "Lorem Ipsum", :base_id => 'bar')              
     end
     it "should generate a div tag" do
-      @tp.render_pane.should have_tag("div")
+      @tab_pane.render_pane.should have_tag("div")
     end
     it "should generate a div tag with the content" do
-      @tp.render_pane.should have_tag("div", :text => "Lorem Ipsum")
+      @tab_pane.render_pane.should have_tag("div", :text => "Lorem Ipsum")
     end
     it "should render a div tag with the correct id" do
-      @tp.render_pane.should have_tag("div#bar_pane")
+      @tab_pane.render_pane.should have_tag("div##{@tp.base_id}_tp_bar_pane")
     end
     it "should set the class to 'pane'" do
-      @tp.render_pane.should have_tag("div.pane")      
+      @tab_pane.render_pane.should have_tag("div.pane")      
     end
     it "should set the class to 'pane_unselected' by default" do
-      @tp.render_pane.should have_tag("div.pane_unselected")            
+      @tab_pane.render_pane.should have_tag("div.pane_unselected")            
     end
     it "should set the class to 'pane_selected' if rendered selected" do
-      @tp.render_pane(true).should have_tag("div.pane_selected")            
+      @tab_pane.render_pane(true).should have_tag("div.pane_selected")            
     end
   end
   

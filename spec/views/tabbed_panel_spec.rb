@@ -11,23 +11,14 @@ describe LogicalTabs::TabbedPanel do
   end
   
   describe "generating tabbed panels" do
-    before(:each) do
-      LogicalTabs::TabbedPanel.panel_count = 0      
-    end
     it "should generate a tabbed panel" do
       @panel = LogicalTabs::TabbedPanel.new(@view)
       @panel.should be_a(LogicalTabs::TabbedPanel)
     end
-    it "should assign an id to the tabbed panel" do
-      @panel = LogicalTabs::TabbedPanel.new(@view)
+    it "should append an id to the tabbed panel" do
+      @panel = LogicalTabs::TabbedPanel.new(@view, :seq => 0)
       @panel.base_id.should == "tabbed_panel_0"  
     end
-    it "should assign sequential IDs to tabbed panels" do
-      @panel = LogicalTabs::TabbedPanel.new(@view)      
-      @panel.base_id.should == "tabbed_panel_0"   
-      @panel2 = LogicalTabs::TabbedPanel.new(@view)
-      @panel2.base_id.should == "tabbed_panel_1"                          
-    end    
     it "should use a specified base_id rather than a sequence if specified" do
       @panel = LogicalTabs::TabbedPanel.new(@view, :base_id => 'my_panel')            
       @panel.base_id.should == "my_panel"         
@@ -36,7 +27,6 @@ describe LogicalTabs::TabbedPanel do
   
   describe "rendering the output" do
     before(:each) do
-      LogicalTabs::TabbedPanel.panel_count = 0      
       @panel = LogicalTabs::TabbedPanel.new(@view)
       @panel.add_tab('foo', :content => "Lorem ipsum")  
       @panel.add_tab('bar', :content => "dolor sit amet.")  
@@ -45,10 +35,10 @@ describe LogicalTabs::TabbedPanel do
     describe "rendering the whole panel" do
       before(:each) { @output = @panel.render }
       it "should render an outer div" do
-        @output.should have_tag('div#tabbed_panel_0.tabbed_panel')
+        @output.should have_tag('div#tabbed_panel.tabbed_panel')
       end
       it "should render an outer div containing the tabs and panes" do        
-        @output.should have_tag('div#tabbed_panel_0') do
+        @output.should have_tag('div#tabbed_panel') do
           with_tag('ul.tabs')
           with_tag('div.panes')
         end        
@@ -64,13 +54,13 @@ describe LogicalTabs::TabbedPanel do
       end
       it "should render an li for each tab" do
         @output.should have_tag("ul") do
-          with_tag ('li#foo_tab')
-          with_tag ('li#bar_tab')
+          with_tag ("li##{@panel.base_id}_tp_foo_tab")
+          with_tag ("li##{@panel.base_id}_tp_bar_tab")
         end        
       end
       it "should render the first li selected by default" do
-        @output.should have_tag('li#foo_tab.tab_selected')
-        @output.should have_tag('li#bar_tab.tab_unselected')        
+        @output.should have_tag("li##{@panel.base_id}_tp_foo_tab.tab_selected")
+        @output.should have_tag("li##{@panel.base_id}_tp_bar_tab.tab_unselected")        
       end
     end
     
@@ -83,13 +73,13 @@ describe LogicalTabs::TabbedPanel do
       end
       it "should render a div for each tab" do
         @output.should have_tag('div.panes') do         
-          with_tag('div#foo_pane')
-          with_tag('div#bar_pane')
+          with_tag("div##{@panel.base_id}_tp_foo_pane")
+          with_tag("div##{@panel.base_id}_tp_bar_pane")
         end
       end
       it "should render the first div selected by default" do
-        @output.should have_tag('div#foo_pane.pane_selected')
-        @output.should have_tag('div#bar_pane.pane_unselected')
+        @output.should have_tag("div##{@panel.base_id}_tp_foo_pane.pane_selected")
+        @output.should have_tag("div##{@panel.base_id}_tp_bar_pane.pane_unselected")
       end      
     end
   end
