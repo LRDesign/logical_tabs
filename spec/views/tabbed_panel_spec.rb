@@ -10,6 +10,30 @@ describe LogicalTabs::TabbedPanel do
     LogicalTabs::TabbedPanel.new(@view)  
   end
   
+  describe "generating tabbed panels" do
+    before(:each) do
+      LogicalTabs::TabbedPanel.panel_count = 0      
+    end
+    it "should generate a tabbed panel" do
+      @panel = LogicalTabs::TabbedPanel.new(@view)
+      @panel.should be_a(LogicalTabs::TabbedPanel)
+    end
+    it "should assign an id to the tabbed panel" do
+      @panel = LogicalTabs::TabbedPanel.new(@view)
+      @panel.base_id.should == "tabbed_panel_0"  
+    end
+    it "should assign sequential IDs to tabbed panels" do
+      @panel = LogicalTabs::TabbedPanel.new(@view)      
+      @panel.base_id.should == "tabbed_panel_0"   
+      @panel2 = LogicalTabs::TabbedPanel.new(@view)
+      @panel2.base_id.should == "tabbed_panel_1"                          
+    end    
+    it "should use a specified base_id rather than a sequence if specified" do
+      @panel = LogicalTabs::TabbedPanel.new(@view, :base_id => 'my_panel')            
+      @panel.base_id.should == "my_panel"         
+    end
+  end
+  
   describe "rendering the output" do
     before(:each) do
       @panel = LogicalTabs::TabbedPanel.new(@view)

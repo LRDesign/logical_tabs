@@ -4,13 +4,21 @@ module LogicalTabs
   
   # a collection of tabs with their associated panes, I.E. a tabbed panel
   class TabbedPanel  
-    attr_reader :tabs
+    @@panel_count = 0
+
+    def TabbedPanel.panel_count=(x)
+      @@panel_count = x
+    end    
+    
+    attr_reader :tabs, :base_id
     
     # view must be an instance of ActionView::Base.   This class 
     # depends on it for access to the capture and content_tag methods
-    def initialize(view)
+    def initialize(view, options = {})
       @view = view 
       @tabs = []
+      @base_id = options[:base_id] || "tabbed_panel_#{@@panel_count}"        
+      @@panel_count+=1   
     end
 
     # Add a new tab (with pane) to this tabbed panel.   Either pass
