@@ -10,6 +10,46 @@ describe LogicalTabs::TabbedPanel do
     LogicalTabs::TabbedPanel.new(@view)  
   end
   
+  describe "rendering the output" do
+    before(:each) do
+      @panel = LogicalTabs::TabbedPanel.new(@view)
+      @panel.add_tab('foo', :content => "Lorem ipsum")  
+      @panel.add_tab('bar', :content => "dolor sit amet.")  
+    end
+    describe "rendering tabs" do
+      before(:each) do
+        @output = @panel.render_tabs
+      end
+      it "should render a url" do
+        @output.should have_tag("ul.tabs")
+      end
+      it "should render an li for each tab" do
+        @output.should have_tag("ul") do
+          with_tag ('li#foo_tab')
+          with_tag ('li#bar_tab')
+        end        
+      end
+      it "should render the first li selected by default" do
+        @output.should have_tag('li#foo_tab.tab_selected')
+        @output.should have_tag('li#bar_tab.tab_unselected')        
+      end
+    end
+    describe "rendering the panes" do
+      before(:each) do
+        @output = @panel.render_panes
+      end
+      it "should render a div for each tab" do
+        @output.should have_tag('div#foo_pane')
+        @output.should have_tag('div#bar_pane')
+      end
+      it "should render the first div selected by default" do
+        @output.should have_tag('div#foo_pane.pane_selected')
+        @output.should have_tag('div#bar_pane.pane_unselected')
+      end      
+    end
+  end
+  
+  
   describe "adding tab_panes" do
     before(:each) do
       @panel = LogicalTabs::TabbedPanel.new(@view)

@@ -40,15 +40,18 @@ module LogicalTabs
       end
     end
 
+    # Render a UL containing all the tabs as LIs.   Which tab is
+    # shown as selected is determined by the return value of selected?
     def render_tabs
       v.content_tag(:ul, 
-        @tabs.map{ |tab| tab.render_tab }.join,
+        @tabs.map{ |tab| tab.render_tab(selected?(tab)) }.join,
         :class => 'tabs'
       )
     end
 
-    def render_panels      
-      @tabs.map{ |tab| tab.render_panel }.join
+    # Render a sequence of DIVs containing the panes.
+    def render_panes      
+      @tabs.map{ |tab| tab.render_pane(selected?(tab)) }.join
     end 
     
     def render
