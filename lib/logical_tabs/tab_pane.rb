@@ -30,11 +30,16 @@ module LogicalTabs
     # Generates output for the tab.
     # Pass "true" to set this as the selected tab.
     def render_tab(selected = false)
-      v.content_tag(:li, 
-        @tab_text, 
+      v.content_tag(:li,
+        tab_link,
         :id => @base_id + "_tab",
         :class => "tab " + (selected ? "tab_selected" : "tab_unselected") 
       )
+    end
+    
+
+    def tab_link
+      v.content_tag(:a, @tab_text, :href => '#' )
     end
     
 

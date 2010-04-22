@@ -52,7 +52,12 @@ describe LogicalTabs::TabPane do
     end
     it "should have class 'selected' when called with selected = true" do
       @tp.render_tab(true).should have_tag("li.tab_selected")            
-    end    
+    end   
+    it "should have an li tag with a link to #" do      
+      @tp.render_tab.should have_tag("li") do
+        with_tag("a[href=#]", :text => @tp.tab_text)
+      end      
+    end 
   end
   
   describe "render_pane" do
