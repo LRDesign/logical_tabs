@@ -3,7 +3,8 @@ logical_tabs
 
 Logical Tabs is a Rails plugin for generating a tabbed panel interface.  
 
-It is currently in development.   Plans for LT include:
+It is currently in development and is not yet production-ready.   Plans for LT include:
+
   • Unobtrusive javascript on simple markup.
   • Compatible with both Pototype and jQuery.
   • Compatible with both ERB and HAML, resistant to future changes in ActionView::Base and HAML.
