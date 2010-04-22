@@ -28,12 +28,25 @@ module LogicalTabs
     end
   
     # Generates output for the tab.
-    def render_tab
-      v.content_tag(:li)
+    # Pass "true" to set this as the selected tab.
+    def render_tab(selected = false)
+      v.content_tag(:li, 
+        @tab_text, 
+        :id => @base_id + "_tab",
+        :class => "tab " + (selected ? "selected" : "unselected") 
+      )
     end
     
-    def render_panel
-      v.content_tag(:div)
+
+    # Generates HTML output for the panel
+    # Pass "true" to set this as the selected/visible panel
+    def render_pane(selected = false)
+      v.content_tag(:div,
+        @content,
+        :id => @base_id + "_pane",
+        :class => "pane",
+        :style => "display:#{selected ? 'block' : 'none'};"
+      )
     end
   
   

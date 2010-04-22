@@ -36,14 +36,47 @@ describe LogicalTabs::TabPane do
   
   describe "render_tab" do
     before(:each) do
-      @tp = LogicalTabs::TabPane.new(@tp, "Foo", :content => "Lorem Ipsum")              
+      @tp = LogicalTabs::TabPane.new(@tp, "Foo", :content => "Lorem Ipsum", :base_id => 'bar')              
     end
-    it "should generate an li tag" do   
-      p self.class
-      debugger
-      @tp.render_tab.should have_tag("li")
+    it "should generate an li tag with the text" do   
+      @tp.render_tab.should have_tag("li", :text => @tp.tab_text)
     end
+    it "should render the correct id " do
+      @tp.render_tab.should have_tag("li#bar_tab")      
+    end
+    it "should have class 'tab'" do
+      @tp.render_tab.should have_tag("li.tab")            
+    end
+    it "should have class 'unselected' by default" do
+      @tp.render_tab.should have_tag("li.unselected")            
+    end
+    it "should have class 'selected' when called with selected = true" do
+      @tp.render_tab(true).should have_tag("li.selected")            
+    end    
   end
   
+  describe "render_pane" do
+    before(:each) do
+      @tp = LogicalTabs::TabPane.new(@tp, "Foo", :content => "Lorem Ipsum", :base_id => 'bar')              
+    end
+    it "should generate a div tag" do
+      @tp.render_pane.should have_tag("div")
+    end
+    it "should generate a div tag with the content" do
+      @tp.render_pane.should have_tag("div", :text => "Lorem Ipsum")
+    end
+    it "should render a div tag with the correct id" do
+      @tp.render_pane.should have_tag("div#bar_pane")
+    end
+    it "should set the class to 'pane'" do
+      @tp.render_pane.should have_tag("div.pane")      
+    end
+    it "should set the display to none by default" do
+      @tp.render_pane.should have_tag("div[style=display:none;]")      
+    end
+    it "should set the display to block when selected" do
+      @tp.render_pane(true).should have_tag("div[style=display:block;]")      
+    end    
+  end
   
 end
