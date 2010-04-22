@@ -11,10 +11,10 @@ describe LogicalTabs::TabbedPanel do
   end
   
   describe "adding tab_panes" do
+    before(:each) do
+      @panel = LogicalTabs::TabbedPanel.new(@view)
+    end
     describe "with specified content" do
-      before(:each) do
-        @panel = LogicalTabs::TabbedPanel.new(@view)
-      end
       it "should create a panel with one tab" do
         @panel.add_tab('foo', :content => 'Lorem Ipsum')
         @panel.tabs.should have(1).tab
@@ -34,5 +34,16 @@ describe LogicalTabs::TabbedPanel do
         end.should raise_error 
       end
     end  
+    
+    describe "with block content" do
+      it "should create a panel with one tab" do
+        @panel.add_tab('foo') { "Lorem Ipsum" }
+        @panel.tabs.should have(1).tab        
+      end
+      it "should create a panel with one tab with the right content" do
+        @panel.add_tab('foo') { "Lorem Ipsum" }
+        @panel.tabs[0].content.should == 'Lorem Ipsum'       
+      end
+    end
   end
 end
