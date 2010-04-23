@@ -1,20 +1,62 @@
 logical_tabs
 ===========
 
-Logical Tabs is a Rails plugin for generating a tabbed panel interface.  
+Logical Tabs is a Rails plugin for generating a tabbed panel interface.  It has a couple of advantages over existing solutions (like the tabs item in JQuery UI):
+  • Tabs are persistent across page loads.   When you re-visit a page, the last tab you had selected is still selected.  This is particularly handy if you are submitting forms from inside tabbed panels and you want your users to see validation errors on the correct panel.
+  • Rails helper to write the HTML for you and keep the IDs of all the elements involved straight.   Less HTML for you to write and manage.
+  • If you create multiple tabbed panels on one page, the helper will automatically increment a suffix on the element's ID to keep them distinct.
 
-It is currently in development and is not yet production-ready.   Plans for LT include:
+It is currently in development (v0.5) and is not yet quite production-ready.   Plans for LT include:
 
   • Unobtrusive javascript on simple markup.
   • Compatible with both Prototype and jQuery.
   • Compatible with both ERB and HAML, resistant to future changes in ActionView::Base and HAML.
   • Session memory of selected tab via an ajax controller - visit a page again and the last-selected tab will still be selected.   
   • Near-complete or complete drop-in replacement for railstabbedpanel for easy migration.
+
+
+INSTALL
+=======
+
+Install the plugin:
+  script/plugin install https://LRDesign@github.com/LRDesign/logical_tabs.git
+                                                     
+Basic stylesheets for the tabs are available in either CSS or SASS.   Copy the one you prefer into your public/stylesheets directory:
+  cp vendor/plugins/logical_tabs/stylesheets/tabbed_panel.css public/stylesheets/
   
+  cp vendor/plugins/logical_tabs/stylesheets/sass/tabbed_panel.sass public/stylesheets/sass/
+  
+Javascript is currently only available for Prototype, though JQuery is coming soon.   Copy the Prototype-compatible javascript into your app:
+
+cp vendor/plugins/logical_tabs/javascripts/logical_tabs_prototype.js public/javascripts
+
+And include the js in your application layout:
+  <%= javascript_include_tag 'logical_tabs_prototype.js' %>
+    
 Example
 =======
 
-Example goes here.
+Create new tabbed panels by calling the helper and feeding them tab content as blocks:  
 
+<% create_tabbed_panel do |tabbed_panel| %>
+  <% tabbed_panel.add_tab("Tab One") do %>
+    Content for Tab One
+  <% end %>  
+  <% tabbed_panel.add_tab("Tab Two") do %>
+    Content for Tab Two
+  <% end %>  
+  <% tabbed_panel.add_tab("Tab Three") do %>
+    <p>Content for Tab Three</p>
+  <% end %>          
+<% end %>  
+
+You can override the ID or text used for a tab:
+  <% tabbed_panel.add_tab("Tab Four", :base_id => 'my_tab', :text => "Tab Text") do %>
+    Content for Tab four.
+  <% end %>              
+  
+You can also specify pane content rather than pass a block:
+<% tabbed_panel.add_tab("Tab Four", :content => "Content for tab four") %>
+                      
 
 Copyright (c) 2010 Evan Dorn and Logical Reality Design, released under the MIT license
