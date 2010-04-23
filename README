@@ -1,5 +1,4 @@
-logical_tabs
-===========
+== logical_tabs
 
 Logical Tabs is a Rails plugin for generating a tabbed panel interface.  It has a couple of advantages over existing solutions (like the tabs item in JQuery UI):
   • Tabs are persistent across page loads.   When you re-visit a page, the last tab you had selected is still selected.  This is particularly handy if you are submitting forms from inside tabbed panels and you want your users to see validation errors on the correct panel.
@@ -14,9 +13,7 @@ It is currently in development (v0.5) and is not yet quite production-ready.   P
   • Session memory of selected tab via an ajax controller - visit a page again and the last-selected tab will still be selected.   
   • Near-complete or complete drop-in replacement for railstabbedpanel for easy migration.
 
-
-INSTALL
-=======
+== Installing
 
 Install the plugin:
   script/plugin install https://LRDesign@github.com/LRDesign/logical_tabs.git
@@ -33,8 +30,7 @@ cp vendor/plugins/logical_tabs/javascripts/logical_tabs_prototype.js public/java
 And include the js in your application layout:
   <%= javascript_include_tag 'logical_tabs_prototype.js' %>
     
-Example
-=======
+== Example Usage
 
 Create new tabbed panels by calling the helper and feeding them tab content as blocks:  
 
@@ -57,6 +53,17 @@ You can override the ID or text used for a tab:
   
 You can also specify pane content rather than pass a block:
 <% tabbed_panel.add_tab("Tab Four", :content => "Content for tab four") %>
-                      
 
-Copyright (c) 2010 Evan Dorn and Logical Reality Design, released under the MIT license
+See more examples in the logical_tabs_demo example project.
+
+== License
+
+Convection is licensed under the MIT License.  Please see the LICENSE file
+for more details.
+                                                                                      
+== Credits
+Copyright Evan Dorn and Logical Reality Design, 2010
+        
+Design and Development: 
+  Logical Reality Design, Altadena, California
+  Evan Dorn, Lead Developer
