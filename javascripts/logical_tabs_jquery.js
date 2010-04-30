@@ -14,7 +14,7 @@
   
 // Set up the click observer on the tabs, and 
 $(document).ready( function(){  
-	$('a').click(function(){ handle_tab_click($(this))});  	  
+	$('a').click(function(event){ event.preventDefault(); handle_tab_click($(this))});  	  
 	$.Jookie.Initialise("tab_memory", 60*24*365);  
 	$('.tabbed_panel').each(function(){ pre_select_tab($(this))});	                 
 });        
