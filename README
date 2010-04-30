@@ -5,11 +5,11 @@ Logical Tabs is a Rails plugin for generating a tabbed panel interface.  It has 
   • Rails helper to write the HTML for you and keep the IDs of all the elements involved straight.   Less HTML for you to write and manage.
   • If you create multiple tabbed panels on one page, the helper will automatically increment a suffix on the element's ID to keep them distinct.
 
-It is currently in development (v0.5) and is not yet quite production-ready.   Plans for LT include:
+It is currently in development (v0.6) and is not yet quite production-ready.   Plans for LT include:
 
   • Unobtrusive javascript on simple markup.
   • Compatible with both Prototype and jQuery.
-  • Compatible with both ERB and HAML, resistant to future changes in ActionView::Base and HAML.
+  • HTML helpers compatible with both ERB and HAML, resistant to future changes in ActionView::Base and HAML.
   • Session memory of selected tab via an ajax controller - visit a page again and the last-selected tab will still be selected.   
   • Near-complete or complete drop-in replacement for railstabbedpanel for easy migration.
 
@@ -20,19 +20,26 @@ Install the plugin:
                                                      
 Basic stylesheets for the tabs are available in either CSS or SASS.   Copy the one you prefer into your public/stylesheets directory:
   cp vendor/plugins/logical_tabs/stylesheets/tabbed_panel.css public/stylesheets/
-  
+    - OR - 
   cp vendor/plugins/logical_tabs/stylesheets/sass/tabbed_panel.sass public/stylesheets/sass/
   
-Javascript is currently only available for Prototype, though JQuery is coming soon.   Copy the Prototype-compatible javascript into your app:
+Copy the appropriate javascript file into your javascripts/ directory.  JS files are provided that
+are compatible with both Prototype and jQuery.
 
-cp vendor/plugins/logical_tabs/javascripts/logical_tabs_prototype.js public/javascripts
+  cp vendor/plugins/logical_tabs/javascripts/logical_tabs_prototype.js public/javascripts
+    - OR - 
+  cp vendor/plugins/logical_tabs/javascripts/logical_tabs_prototype.js public/javascripts
+
 
 And include the js in your application layout:
-  <%= javascript_include_tag 'logical_tabs_prototype.js' %>
+ For Prototype: <%= javascript_include_tag 'logical_tabs_prototype.js' %>
+ For jQuery: <%= javascript_include_tag 'logical_tabs_prototype.js' %>
+
+Note that both of the above javascripts include dependencies; logical_tabs_prototype.js includes a copy of Lalit Patel's CookieJar (http://www.lalit.org/lab/jsoncookies ) and logical_tabs_jquery.js includes a copy of Jon Combe's Jookie.   If you already have one of those libraries installed in your application, you'll want to strip the duplicate out of this plugin's js file.
     
 == Example Usage
 
-Create new tabbed panels by calling the helper and feeding them tab content as blocks:  
+Create new tabbed panels by calling the 'create_tabbed_panel' helper and feeding blocks of content to the 'add_tab' method:   
 
 <% create_tabbed_panel do |tabbed_panel| %>
   <% tabbed_panel.add_tab("Tab One") do %>
@@ -54,7 +61,10 @@ You can override the ID or text used for a tab:
 You can also specify pane content rather than pass a block:
 <% tabbed_panel.add_tab("Tab Four", :content => "Content for tab four") %>
 
-See more examples in the logical_tabs_demo example project.
+In each case, the helper will generate a DIV that contains a UL of the tabs (each tab in an LI) and a set of DIVs containing each of the content panes.
+
+See more examples (including both ERB and HAML formatting) in the logical_tabs_demo example project:    
+   http://github.com/LRDesign/logical_tabs_demo
 
 == License
 
@@ -67,3 +77,11 @@ Copyright Evan Dorn and Logical Reality Design, 2010
 Design and Development: 
   Logical Reality Design, Altadena, California
   Evan Dorn, Lead Developer
+                              
+== Version History
+                    
+0.6 (April 29, 2010)                                                                   
+  • Added jQuery-compatible javascript.
+
+0.5 (April 22, 2010) 
+  • Initial release, contains only Prototype-compatible javascript.
