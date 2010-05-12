@@ -79,6 +79,9 @@ Design and Development:
   Evan Dorn, Lead Developer
                               
 == Version History
+
+0.6.1 (May 11, 2010)
+  • Fixed a serious bug with the jQuery script.
                     
 0.6 (April 29, 2010)                                                                   
   • Added jQuery-compatible javascript.
