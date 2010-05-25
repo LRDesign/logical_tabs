@@ -76,12 +76,13 @@ function store_tab_preference(tab_id) {
   }
   tab_memory[memory_key_from_tab(tab_id)] = tab_id;
   $.Jookie.Set('tab_memory', 'tab_history', tab_memory);           
-  console.log("Stored tab memory:", tab_memory);
 }   
 
 function get_tab_memory() {
-  tab_memory = $.Jookie.Get('tab_memory','tab_history');  
-  console.log("Retrieved tab memory:", tab_memory);
+  tab_memory = $.Jookie.Get('tab_memory','tab_history'); 
+  if(typeof(tab_memory) == 'undefined') {
+	  tab_memory = {};
+	}
   return tab_memory;
 }
 
