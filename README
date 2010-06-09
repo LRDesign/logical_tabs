@@ -1,8 +1,10 @@
 == logical_tabs
 
-Logical Tabs is a Rails plugin for generating a tabbed panel interface.  It has a couple of advantages over existing solutions (like the tabs item in JQuery UI):
-  • Tabs are persistent across page loads.   When you re-visit a page, the last tab you had selected is still selected.  This is particularly handy if you are submitting forms from inside tabbed panels and you want your users to see validation errors on the correct panel.
+Logical Tabs is a Rails plugin for generating a tabbed panel interface.  It has a couple of advantages over existing solutions (like the tabs item in JQuery UI, or the old Rails plugin railstabbedpanel):
+  • Tabs are persistent across page loads.   Reload a page and the tab you had selected is still selected.
+  
   • Rails helper to write the HTML for you and keep the IDs of all the elements involved straight.   Less HTML for you to write and manage.
+  
   • If you create multiple tabbed panels on one page, the helper will automatically increment a suffix on the element's ID to keep them distinct.
 
 It is currently in development (v0.6) and is not yet quite production-ready.   Plans for LT include:
@@ -12,6 +14,9 @@ It is currently in development (v0.6) and is not yet quite production-ready.   P
   • HTML helpers compatible with both ERB and HAML, resistant to future changes in ActionView::Base and HAML.
   • Session memory of selected tab via an ajax controller - visit a page again and the last-selected tab will still be selected.   
   • Near-complete or complete drop-in replacement for railstabbedpanel for easy migration.
+  • jQuery option written as a proper jQuery UI plugin so it can be skinned with themeroller.
+
+Note: this is a bit of a weekend hack.  In particular, it was written primarily for Prototype, and the jQuery version of the javasscript is a quick hack of the prototype code to make it work in jQuery.  It does work, but is not a proper jQuery plugin and doesn't talk to jQueryUI at all.   I do plan to clean this up for future releases, but am happy to accept contributions from anyone else who is interested.
 
 == Installing
 
@@ -79,6 +84,9 @@ Design and Development:
   Evan Dorn, Lead Developer
                               
 == Version History
+
+0.6.2 (June 8, 2010) 
+  • Removed some unnecessary console debugging calls from the jQuery script and updated this README.
 
 0.6.1 (May 11, 2010)
   • Fixed a serious bug with the jQuery script.
