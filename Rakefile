@@ -2,15 +2,18 @@ require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
 
-desc 'Default: run unit tests.'
-task :default => :test
+desc 'Default: run specs.'
+task :default => :all_specs
 
-desc 'Test the logical_tabs plugin.'
-Rake::TestTask.new(:test) do |t|
-  t.libs << 'lib'
-  t.libs << 'test'
-  t.pattern = 'test/**/*_test.rb'
-  t.verbose = true
+desc "Run all specs"
+task :all_specs do
+  Dir['spec/**/Rakefile'].each do |rakefile|
+    directory_name = File.dirname(rakefile)
+    sh <<-CMD
+      cd #{directory_name}
+      bundle exec rake
+    CMD
+  end
 end
 
 desc 'Generate documentation for the logical_tabs plugin.'
