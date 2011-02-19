@@ -1,3 +1,6 @@
+Dir[File::expand_path(__FILE__ + "/../support/**/*.rb")].each{|file| require file}
+Ungemmer::ungem_gemspec
+
 begin
   require File.dirname(__FILE__) + '/../../../../spec/spec_helper'
 rescue LoadError

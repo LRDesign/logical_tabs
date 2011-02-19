@@ -1,2 +1,5 @@
 spec/*.log
 spec/rails3
+_MTN
+_MTN/
+.mtn*
