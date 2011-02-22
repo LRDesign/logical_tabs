@@ -1,5 +1,5 @@
-spec/*.log
-spec/rails3
+spec/**/*.log
+*~
 _MTN
 _MTN/
 .mtn*

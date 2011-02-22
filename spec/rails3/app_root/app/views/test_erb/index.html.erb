@@ -1,0 +1,12 @@
+<%= create_tabbed_panel do |tabbed_panel| %>
+  <% tabbed_panel.add_tab("Tab One") do %>
+    Content for Tab One
+  <% end %>
+  <% tabbed_panel.add_tab("Tab Two") do %>
+    Content for Tab Two
+  <% end %>
+  <% tabbed_panel.add_tab("Tab Three") do %>
+    <p>Content for Tab Three</p>
+  <% end %>
+  <% tabbed_panel.add_tab("Tab Four", :content => "Content for Tab Four") %>
+<% end %>
