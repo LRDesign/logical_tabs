@@ -5,5 +5,3 @@ describe "test_erb/index", :type => :view do
     render
   end
 end
-
-foo

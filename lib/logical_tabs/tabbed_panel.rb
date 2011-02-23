@@ -1,15 +1,17 @@
+require 'logical_tabs/tab_pane'
+
 module LogicalTabs
   class DuplicateTabID < Exception
   end
-  
+
   # a collection of tabs with their associated panes, I.E. a tabbed panel
-  class TabbedPanel      
+  class TabbedPanel
     attr_reader :tabs, :base_id
-    
-    # view must be an instance of ActionView::Base.   This class 
+
+    # view must be an instance of ActionView::Base.   This class
     # depends on it for access to the capture and content_tag methods
     def initialize(view, options = {})
-      @view = view 
+      @view = view
       @tabs = []
       @base_id = options[:base_id] || build_generic_id(options)
     end
@@ -18,7 +20,7 @@ module LogicalTabs
       base_id = "tabbed_panel"
       base_id += "_#{options[:seq]}" if options[:seq]
       base_id
-    end  
+    end
 
     # Add a new tab (with pane) to this tabbed panel.   Either pass
     # a block with the content for the panel, or pass :content => 'my_content'.
@@ -36,11 +38,11 @@ module LogicalTabs
     #   :tab_text The text to display in the tab.  Defaults to name.
     #
     #   :content  The content for the panel itself, in HTML
-    def add_tab(name, options = {},  &block)       
-      # debugger  
+    def add_tab(name, options = {},  &block)
+      # debugger
       options[:content] ||= v.capture(&block)
       tab = TabPane.new(self, name, options)
-      if @tabs.any?{ |t| t.base_id == tab.base_id } 
+      if @tabs.any?{ |t| t.base_id == tab.base_id }
         raise DuplicateTabID
       else
         @tabs << tab
@@ -50,7 +52,7 @@ module LogicalTabs
     # Render a UL containing all the tabs as LIs.   Which tab is
     # shown as selected is determined by the return value of selected?
     def render_tabs
-      v.content_tag(:ul, 
+      v.content_tag(:ul,
         @tabs.map{ |tab| tab.render_tab(selected?(tab)) }.join,
         :class => 'tabs'
       )
@@ -58,21 +60,21 @@ module LogicalTabs
 
     # Render a sequence of DIVs containing the panes.
     def render_panes
-      v.content_tag(:div, 
+      v.content_tag(:div,
         @tabs.map{ |tab| tab.render_pane(selected?(tab)) }.join,
         :class => 'panes'
-      )            
-    end 
-    
+      )
+    end
+
     # render the entire tabbed panel and all contents.
-    def render  
+    def render
       v.content_tag(:div,
         render_tabs + render_panes,
         :id => @base_id,
-        :class => 'tabbed_panel'        
-      )    
+        :class => 'tabbed_panel'
+      )
     end
-    
+
     # For the moment, the first tab is the one selected
     def selected_tab
       @tabs.first
@@ -92,4 +94,3 @@ module LogicalTabs
 
   end
 end
-  
