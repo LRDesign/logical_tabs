@@ -11,7 +11,7 @@ module LogicalTabs
       tabbed_panel = TabbedPanel.new(self, options)
 
       if block_given?
-        output = capture(tabbed_panel, &block)
+        output = capture(tabbed_panel, &block) || ""
         output += tabbed_panel.render
         concat output
       end
