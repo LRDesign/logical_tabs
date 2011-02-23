@@ -1,6 +1,5 @@
 $: << File.join(File.dirname(__FILE__), "/../lib" )
 
-puts "--------------------------- Setting environment"
 # Set the default environment to sqlite3's in_memory database
 ENV['RAILS_ENV'] = 'test'
 ENV['RAILS_ROOT'] = 'app_root'

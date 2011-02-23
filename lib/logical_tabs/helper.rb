@@ -2,9 +2,6 @@ module LogicalTabs
   require 'logical_tabs/tabbed_panel'
 
   module Helper
-
-    puts "------------------- Loading Helper module"
-
     def create_tabbed_panel( options = {}, &block)
       @panel_count = defined?(@panel_count) ? @panel_count + 1 : 0
       options.merge!({:seq => @panel_count}) unless options[:base_id]
@@ -21,10 +18,5 @@ module LogicalTabs
     def wrap_in_div(id, &block)
       concat content_tag(:div, capture(&block), :class => 'wrapper', :id => id)
     end
-
-    def self.included(into_mod)
-      puts "------------------- Including Helper module into #{into_mod}"
-    end
-
   end
 end
