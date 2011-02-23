@@ -17,8 +17,8 @@ module LogicalTabs
     end
 
     def build_generic_id(options)
-      base_id = "tabbed_panel"
-      base_id += "_#{options[:seq]}" if options[:seq]
+      base_id = "tabbed_panel".html_safe
+      base_id += "_#{options[:seq]}".html_safe if options[:seq]
       base_id
     end
 
@@ -53,26 +53,27 @@ module LogicalTabs
     # shown as selected is determined by the return value of selected?
     def render_tabs
       v.content_tag(:ul,
-        @tabs.map{ |tab| tab.render_tab(selected?(tab)) }.join,
-        :class => 'tabs'
-      )
+        @tabs.map{ |tab| tab.render_tab(selected?(tab)) }.join.html_safe,
+        :class => 'tabs'.html_safe
+      ).html_safe
     end
 
     # Render a sequence of DIVs containing the panes.
     def render_panes
       v.content_tag(:div,
-        @tabs.map{ |tab| tab.render_pane(selected?(tab)) }.join,
-        :class => 'panes'
-      )
+        @tabs.map{ |tab| tab.render_pane(selected?(tab)) }.join.html_safe,
+        :class => 'panes'.html_safe
+      ).html_safe
     end
 
     # render the entire tabbed panel and all contents.
     def render
-      v.content_tag(:div,
+      out = v.content_tag(:div,
         render_tabs + render_panes,
-        :id => @base_id,
-        :class => 'tabbed_panel'
-      )
+        :id => @base_id.to_s.html_safe,
+        :class => 'tabbed_panel'.html_safe
+      ).html_safe
+      out
     end
 
     # For the moment, the first tab is the one selected

@@ -8,15 +8,15 @@ module LogicalTabs
       tabbed_panel = TabbedPanel.new(self, options)
 
       if block_given?
-        output = capture(tabbed_panel, &block) || ""
-        output += tabbed_panel.render
-        concat output
+        yield(tabbed_panel)
+        output = tabbed_panel.render
+        output
       end
-      return tabbed_panel
+      return output
     end
 
     def wrap_in_div(id, &block)
-      concat content_tag(:div, capture(&block), :class => 'wrapper', :id => id)
+      content_tag(:div, capture(&block), :class => 'wrapper', :id => id)
     end
   end
 end

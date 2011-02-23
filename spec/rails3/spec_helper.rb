@@ -8,6 +8,7 @@ ENV['RAILS_ROOT'] = 'app_root'
 require "#{File.dirname(__FILE__)}/app_root/config/environment"
 require "#{File.dirname(__FILE__)}/../../lib/logical_tabs"
 require 'rspec/rails'
+require 'webrat'
 
 # Undo changes to RAILS_ENV
 silence_warnings {RAILS_ENV = ENV['RAILS_ENV']}

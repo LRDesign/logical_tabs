@@ -18,7 +18,7 @@ module LogicalTabs
     #   :tab_text The text to display in the tab.  Defaults to name.
     #
     #   :content  The content for the panel itself, in HTML
-    #              
+    #
     def initialize(tabbed_panel, name, options = {})
       @tabbed_panel = tabbed_panel
       @name = name
@@ -26,42 +26,42 @@ module LogicalTabs
       @tab_text = options[:tab_text] || name
       @content = options[:content] || ''
     end
-  
+
     # Generates output for the tab.
     # Pass "true" to set this as the selected tab.
     def render_tab(selected = false)
       v.content_tag(:li,
         tab_link,
-        :id => composite_id + "_tab",
-        :class => "tab " + (selected ? "tab_selected" : "tab_unselected") 
-      )
+        :id => (composite_id + "_tab").html_safe,
+        :class => ("tab " + (selected ? "tab_selected" : "tab_unselected")).html_safe
+      ).html_safe
     end
-    
+
 
     def tab_link
-      v.content_tag(:a, @tab_text, :href => '#', :class => 'tab_link' )
+      v.content_tag(:a, @tab_text, :href => '#', :class => 'tab_link' ).html_safe
     end
-    
+
     # generates an ID for this tab_pane that includes the base_id of the
     # containing tabbed_panel and the base_id of this tab_pane.
     def composite_id
-      @tabbed_panel.base_id + "_tp_" + @base_id      
-    end        
+      (@tabbed_panel.base_id + "_tp_" + @base_id).html_safe
+    end
 
     # Generates HTML output for the panel
     # Pass "true" to set this as the selected/visible panel
     def render_pane(selected = false)
       v.content_tag(:div,
         @content,
-        :id => composite_id + "_pane",
-        :class => "pane " + (selected ? "pane_selected" : "pane_unselected") 
-      )
+        :id => (composite_id + "_pane").html_safe,
+        :class => "pane " + (selected ? "pane_selected" : "pane_unselected")
+      ).html_safe
     end
-  
-  
+
+
     private
     # Shortcut to the view
-    def v; @tabbed_panel.v; end 
-  
+    def v; @tabbed_panel.v; end
+
   end
 end
