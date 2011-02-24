@@ -15,9 +15,9 @@
   <% tabbed_panel.add_tab("Tab Four", :content => "Content for Tab Four".html_safe) %>
 
   <%- unsafe = "<script>unsafe!</script>"%>
-  <% tabbed_panel.add_tab("Tab Five", :content => unsafe) %>
+  <% tabbed_panel.add_tab("Tab Foo", :content => unsafe) %>
 
-  <% tabbed_panel.add_tab("Tab Six") do %>
+  <% tabbed_panel.add_tab("Tab Bar") do %>
     <%= unsafe %>
   <% end %>
 <% end %>
