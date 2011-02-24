@@ -1,98 +1,96 @@
-== logical_tabs
+== LogicalTabs
 
-Logical Tabs is a Rails plugin for generating a tabbed panel interface.  It has a couple of advantages over existing solutions (like the tabs item in JQuery UI, or the old Rails plugin railstabbedpanel):
+LogicalTabs is a Rails gem for generating a tabbed panel interface.  It has a couple of advantages over existing solutions (like the tabs item in JQuery UI, or the old Rails plugin railstabbedpanel):
   • Tabs are persistent across page loads.   Reload a page and the tab you had selected is still selected.
-  
   • Rails helper to write the HTML for you and keep the IDs of all the elements involved straight.   Less HTML for you to write and manage.
-  
   • If you create multiple tabbed panels on one page, the helper will automatically increment a suffix on the element's ID to keep them distinct.
-
-It is currently in development (v0.6) and is not yet quite production-ready.   Plans for LT include:
-
   • Unobtrusive javascript on simple markup.
   • Compatible with both Prototype and jQuery.
   • HTML helpers compatible with both ERB and HAML, resistant to future changes in ActionView::Base and HAML.
-  • Session memory of selected tab via an ajax controller - visit a page again and the last-selected tab will still be selected.   
-  • Near-complete or complete drop-in replacement for railstabbedpanel for easy migration.
-  • jQuery option written as a proper jQuery UI plugin so it can be skinned with themeroller.
 
-Note: this is a bit of a weekend hack.  In particular, it was written primarily for Prototype, and the jQuery version of the javasscript is a quick hack of the prototype code to make it work in jQuery.  It does work, but is not a proper jQuery plugin and doesn't talk to jQueryUI at all.   I do plan to clean this up for future releases, but am happy to accept contributions from anyone else who is interested.
+Note: jQuery compatibility is a bit of a weekend hack.  In particular, it was written primarily for Prototype, and the jQuery version of the javasscript is a quick hack of the prototype code to make it work in jQuery.  It does work, but is not a proper jQuery plugin and doesn't talk to jQueryUI at all.   I do plan to clean this up for future releases, but am happy to accept contributions from anyone else who is interested.
+
+In an upcoming version we will release it with a third Javascript that uses NinjaScript syntax.   For
+more information on NinjaScript, see https://github.com/LRDesign/NinjaScript.
+
+== Compatibility
+
+logical_tabs >= 0.8.0 is built for Rails 3.0.x.   Versions below 0.8 were a plugin (not a gem) for Rails 2.x.  If you want to use LogicalTabs with Rails 2.x, see the "rails2_plugin" branch of this project on github:
+  https://github.com/LRDesign/logical_tabs/tree/rails2_plugin
 
 == Installing
 
-Install the plugin:
-  script/plugin install https://LRDesign@github.com/LRDesign/logical_tabs.git
-                                                     
-Basic stylesheets for the tabs are available in either CSS or SASS.   Copy the one you prefer into your public/stylesheets directory:
-  cp vendor/plugins/logical_tabs/stylesheets/tabbed_panel.css public/stylesheets/
-    - OR - 
-  cp vendor/plugins/logical_tabs/stylesheets/sass/tabbed_panel.sass public/stylesheets/sass/
-  
-Copy the appropriate javascript file into your javascripts/ directory.  JS files are provided that
-are compatible with both Prototype and jQuery.
+Add to your Gemfile:
+  gem 'logical_tabs'
 
-  cp vendor/plugins/logical_tabs/javascripts/logical_tabs_prototype.js public/javascripts
-    - OR - 
-  cp vendor/plugins/logical_tabs/javascripts/logical_tabs_prototype.js public/javascripts
+Installer script coming shortly.  The documentation below this line does not work yet.
 
+Install the basic stylesheets and javascripts:
+  rails generate logical_tabs install [ --sass ] [ --jquery ]
+
+The above command installs CSS stylesheet into public/stylesheets and a prototype version of the
+javascript into public/javascripts.   Pass '--sass' to  instead copy a SASS version to public/stylesheets/sass.   Pass '--jquery' to copy the jquery javascript instead of the prototype.
 
 And include the js in your application layout:
  For Prototype: <%= javascript_include_tag 'logical_tabs_prototype.js' %>
  For jQuery: <%= javascript_include_tag 'logical_tabs_prototype.js' %>
 
 Note that both of the above javascripts include dependencies; logical_tabs_prototype.js includes a copy of Lalit Patel's CookieJar (http://www.lalit.org/lab/jsoncookies ) and logical_tabs_jquery.js includes a copy of Jon Combe's Jookie.   If you already have one of those libraries installed in your application, you'll want to strip the duplicate out of this plugin's js file.
-    
+
 == Example Usage
 
-Create new tabbed panels by calling the 'create_tabbed_panel' helper and feeding blocks of content to the 'add_tab' method:   
+Create new tabbed panels by calling the 'create_tabbed_panel' helper and feeding blocks of content to the 'add_tab' method:
 
 <% create_tabbed_panel do |tabbed_panel| %>
   <% tabbed_panel.add_tab("Tab One") do %>
     Content for Tab One
-  <% end %>  
+  <% end %>
   <% tabbed_panel.add_tab("Tab Two") do %>
     Content for Tab Two
-  <% end %>  
+  <% end %>
   <% tabbed_panel.add_tab("Tab Three") do %>
     <p>Content for Tab Three</p>
-  <% end %>          
-<% end %>  
+  <% end %>
+<% end %>
 
 You can override the ID or text used for a tab:
   <% tabbed_panel.add_tab("Tab Four", :base_id => 'my_tab', :text => "Tab Text") do %>
     Content for Tab four.
-  <% end %>              
-  
+  <% end %>
+
 You can also specify pane content rather than pass a block:
 <% tabbed_panel.add_tab("Tab Four", :content => "Content for tab four") %>
 
 In each case, the helper will generate a DIV that contains a UL of the tabs (each tab in an LI) and a set of DIVs containing each of the content panes.
 
-See more examples (including both ERB and HAML formatting) in the logical_tabs_demo example project:    
+See more examples (including both ERB and HAML formatting) in the logical_tabs_demo example project:
    http://github.com/LRDesign/logical_tabs_demo
 
 == License
 
 Convection is licensed under the MIT License.  Please see the LICENSE file
 for more details.
-                                                                                      
+
 == Credits
 Copyright Evan Dorn and Logical Reality Design, 2010
-        
-Design and Development: 
+
+Design and Development:
   Logical Reality Design, Altadena, California
   Evan Dorn, Lead Developer
-                              
+
 == Version History
 
-0.6.2 (June 8, 2010) 
+0.8.0 (February 24, 2011)
+  • Released Rails 3 gem version.
+
+0.6.2 (June 8, 2010)
   • Removed some unnecessary console debugging calls from the jQuery script and updated this README.
 
 0.6.1 (May 11, 2010)
   • Fixed a serious bug with the jQuery script.
-                    
-0.6 (April 29, 2010)                                                                   
+
+0.6 (April 29, 2010)
   • Added jQuery-compatible javascript.
 
-0.5 (April 22, 2010) 
+0.5 (April 22, 2010)
   • Initial release, contains only Prototype-compatible javascript.

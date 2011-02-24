@@ -40,7 +40,15 @@ SPEC = Gem::Specification.new do |spec|
   # ]
   spec.files += Dir.glob("lib/**/*")
   spec.files += Dir.glob("doc/**/*")
-  spec.files += Dir.glob("spec/**/*")
+  spec.files << %w[
+    Gemfile
+    Gemfile.lock
+    LICENSE.txt
+    README.rdoc
+  ]
+
+  # Don't include specfiles for now when installing
+  # spec.files += Dir.glob("spec/**/*")
 
   spec.test_file        = "spec_help/gem_test_suite.rb"
 
