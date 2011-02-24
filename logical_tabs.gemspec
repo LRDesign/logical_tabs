@@ -38,19 +38,21 @@ SPEC = Gem::Specification.new do |spec|
   #   # !!find tasks -type f
   #   # !!find generators -type f
   # ]
-  spec.files += Dir.glob("lib/**/*")
-  spec.files += Dir.glob("doc/**/*")
-  spec.files << %w[
+  spec.files = %w[
     Gemfile
     Gemfile.lock
     LICENSE.txt
     README.rdoc
+    Rakefile
+    VERSION
   ]
+  spec.files += Dir.glob("lib/**/*")
+  spec.files += Dir.glob("doc/**/*")
 
   # Don't include specfiles for now when installing
   # spec.files += Dir.glob("spec/**/*")
 
-  spec.test_file        = "spec_help/gem_test_suite.rb"
+  # spec.test_file        = "spec_help/gem_test_suite.rb"
 
   spec.homepage = "http://lrdesign.com/tools"
   spec.licenses = ["MIT"]

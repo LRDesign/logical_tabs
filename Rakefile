@@ -14,3 +14,10 @@ task :all_specs do
     CMD
   end
 end
+
+namespace :update do
+  desc "regenerate the CSS from SASS source"
+  task :css do
+    sh 'sass lib/generators/logical_tabs/install/templates/stylesheets/sass/logical_tabs.sass lib/generators/logical_tabs/install/templates/stylesheets/logical_tabs.css'
+  end
+end

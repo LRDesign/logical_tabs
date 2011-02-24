@@ -12,10 +12,10 @@
 
 .panes {
   clear: both;
-  border-left: solid 1px #CCC;
-  border-bottom: solid 1px #CCC;
-  border-top: solid 1px #999;
-  border-right: solid 1px #999;
+  border-left: solid 1px #cccccc;
+  border-bottom: solid 1px #cccccc;
+  border-top: solid 1px #999999;
+  border-right: solid 1px #999999;
   background-color: white;
   padding: 10px;
   margin: 0; }
@@ -28,10 +28,10 @@ li.tab {
   margin: 0px 3px 0px 0px;
   font: bold 1.2em sans-serif;
   list-style: none;
-  border-left: solid 1px #CCC;
-  border-bottom: solid 1px #999;
-  border-top: solid 1px #999;
-  border-right: solid 1px #999;
+  border-left: solid 1px #cccccc;
+  border-bottom: solid 1px #999999;
+  border-top: solid 1px #999999;
+  border-right: solid 1px #999999;
   -moz-user-select: none;
   -khtml-user-select: none;
   cursor: pointer;
@@ -42,10 +42,10 @@ li.tab_selected {
   border-bottom: 1px solid white; }
 
 li.tab_unselected {
-  background-color: #aac; }
+  background-color: #aaaacc; }
 
 li.tab_unselected:hover {
-  background-color: #A77; }
+  background-color: #aa7777; }
 
 li.tab a {
   display: block;
@@ -55,4 +55,4 @@ li.tab a {
   text-decoration: none; }
 
 li.tab a:hover {
-  color: #009; }
+  color: #000099; }
