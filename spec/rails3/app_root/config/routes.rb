@@ -1,4 +1,5 @@
 AppRoot::Application.routes.draw do
+  get "test_haml/index"
   get "test_erb/index"
 
   # The priority is based upon order of creation:
