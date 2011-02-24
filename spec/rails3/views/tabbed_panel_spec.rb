@@ -2,7 +2,7 @@
 require 'spec_helper'
 require 'logical_tabs/tabbed_panel'
 
-describe LogicalTabs::TabbedPanel do
+describe LogicalTabs::TabbedPanel, :type => :view do
   before(:each) do
     @view = ActionView::Base.new
   end
@@ -33,7 +33,7 @@ describe LogicalTabs::TabbedPanel do
     end
 
     describe "rendering the whole panel" do
-      before(:each) { @output = @panel.render }
+      before(:each) { @output = @panel.render.to_s }
       it "should render an outer div" do
         @output.should have_selector('div#tabbed_panel.tabbed_panel')
       end
