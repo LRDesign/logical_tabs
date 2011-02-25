@@ -37,6 +37,13 @@ module LogicalTabs
       ).html_safe
     end
 
+    def render_header(selected = false)
+      v.content_tag(:h3,
+        @tab_text,
+        :class => ("pane_print_header ").html_safe
+      ).html_safe
+    end
+
 
     def tab_link
       v.content_tag(:a, @tab_text, :href => '#', :class => 'tab_link' ).html_safe
@@ -52,7 +59,7 @@ module LogicalTabs
     # Pass "true" to set this as the selected/visible panel
     def render_pane(selected = false)
       v.content_tag(:div,
-        @content,
+        render_header + @content,
         :id => (composite_id + "_pane").html_safe,
         :class => "pane " + (selected ? "pane_selected" : "pane_unselected")
       ).html_safe

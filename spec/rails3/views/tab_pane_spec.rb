@@ -52,7 +52,9 @@ describe LogicalTabs::TabPane, :type => :view do
       @tab_pane = LogicalTabs::TabPane.new(@tp, "Foo", :content => "Lorem Ipsum", :base_id => 'bar')
     end
     it "should generate an li tag with the text" do
-      @tab_pane.render_tab.should have_selector("li", :text => @tab_pane.tab_text)
+      @tab_pane.render_tab.should have_selector("li") do |scope|
+        scope.should contain(@tab_pane.tab_text)
+      end
     end
     it "should render the correct id, including prefix from the panel" do
       @tab_pane.render_tab.should have_selector("li##{@tp.base_id}_tp_bar_tab")
@@ -68,7 +70,9 @@ describe LogicalTabs::TabPane, :type => :view do
     end
     it "should have an li tag with a link to #" do
       @tab_pane.render_tab.should have_selector("li") do |scope|
-        scope.should have_selector("a[href=#]", :text => @tab_pane.tab_text)
+        scope.should have_selector("a[href='#']") do |s2|
+          s2.should contain(@tab_pane.tab_text)
+        end
       end
     end
   end
@@ -81,7 +85,9 @@ describe LogicalTabs::TabPane, :type => :view do
       @tab_pane.render_pane.should have_selector("div")
     end
     it "should generate a div tag with the content" do
-      @tab_pane.render_pane.should have_selector("div", :text => "Lorem Ipsum")
+      @tab_pane.render_pane.should have_selector("div") do |scope|
+        scope.should contain("Lorem Ipsum")
+      end
     end
     it "should render a div tag with the correct id" do
       @tab_pane.render_pane.should have_selector("div##{@tp.base_id}_tp_bar_pane")
@@ -95,6 +101,25 @@ describe LogicalTabs::TabPane, :type => :view do
     it "should set the class to 'pane_selected' if rendered selected" do
       @tab_pane.render_pane(true).should have_selector("div.pane_selected")
     end
+    it "should contain the print header" do
+      @tab_pane.render_pane.should have_selector("div.pane") do |scope|
+        scope.should have_selector('h3.pane_print_header')
+      end
+    end
   end
+
+  describe "render_header" do
+    before { @tab_pane = LogicalTabs::TabPane.new(@tp, "Foo", :content => "Lorem Ipsum", :base_id => 'bar') }
+    it "should generate an h3 tag with class 'pane_print_header'" do
+      @tab_pane.render_header.should have_selector("h3.pane_print_header")
+    end
+    it "should generate an h3 with the tab text" do
+      @tab_pane.render_header.should have_selector("h3.pane_print_header") do |scope|
+        scope.should contain('Foo')
+      end
+    end
+
+  end
+
 
 end
