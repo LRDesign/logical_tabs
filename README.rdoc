@@ -23,17 +23,16 @@ logical_tabs >= 0.8.0 is built for Rails 3.0.x.   Versions below 0.8 were a plug
 Add to your Gemfile:
   gem 'logical_tabs'
 
-Installer script coming shortly.  The documentation below this line does not work yet.
-
 Install the basic stylesheets and javascripts:
-  rails generate logical_tabs install [ --sass ] [ --jquery ]
+  rails generate logical_tabs install
 
 The above command installs CSS stylesheet into public/stylesheets and a prototype version of the
-javascript into public/javascripts.   Pass '--sass' to  instead copy a SASS version to public/stylesheets/sass.   Pass '--jquery' to copy the jquery javascript instead of the prototype.
+javascript into public/javascripts.   Pass '--css=sass' to  instead copy a SASS version to public/stylesheets/sass.   Pass '--js=jquery' to copy the jquery javascript instead of the prototype.
+Pass --css
 
 And include the js in your application layout:
  For Prototype: <%= javascript_include_tag 'logical_tabs_prototype.js' %>
- For jQuery: <%= javascript_include_tag 'logical_tabs_prototype.js' %>
+ For jQuery: <%= javascript_include_tag 'logical_tabs_jquery.js' %>
 
 Note that both of the above javascripts include dependencies; logical_tabs_prototype.js includes a copy of Lalit Patel's CookieJar (http://www.lalit.org/lab/jsoncookies ) and logical_tabs_jquery.js includes a copy of Jon Combe's Jookie.   If you already have one of those libraries installed in your application, you'll want to strip the duplicate out of this plugin's js file.
 
@@ -79,7 +78,7 @@ Design and Development:
 
 == Version History
 
-0.8.0 (February 24, 2011)
+0.8.0 (February 25, 2011)
 * Released Rails 3 gem version.
 
 0.6.2 (June 8, 2010)
