@@ -1,4 +1,5 @@
 spec/**/*.log
+.sass-cache*
 *~
 _MTN
 _MTN/

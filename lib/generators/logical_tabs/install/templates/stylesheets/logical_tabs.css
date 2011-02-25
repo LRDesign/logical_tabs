@@ -4,12 +4,6 @@
   width: 100%;
   margin-top: 1em; }
 
-.pane_selected {
-  display: block; }
-
-.pane_unselected {
-  display: none; }
-
 .panes {
   clear: both;
   border-left: solid 1px #cccccc;
@@ -20,39 +14,56 @@
   padding: 10px;
   margin: 0; }
 
-li.tab {
-  position: relative;
-  top: 1px;
-  float: left;
-  padding: 0;
-  margin: 0px 3px 0px 0px;
-  font: bold 1.2em sans-serif;
-  list-style: none;
-  border-left: solid 1px #cccccc;
-  border-bottom: solid 1px #999999;
-  border-top: solid 1px #999999;
-  border-right: solid 1px #999999;
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  cursor: pointer;
-  font-size: 11px; }
+@media screen, projection {
+  .pane_print_header {
+    display: none; }
 
-li.tab_selected {
-  background-color: white;
-  border-bottom: 1px solid white; }
+  .pane_selected {
+    display: block; }
 
-li.tab_unselected {
-  background-color: #aaaacc; }
+  .pane_unselected {
+    display: none; }
 
-li.tab_unselected:hover {
-  background-color: #aa7777; }
+  li.tab {
+    position: relative;
+    top: 1px;
+    float: left;
+    padding: 0;
+    margin: 0px 3px 0px 0px;
+    font: bold 1.2em sans-serif;
+    list-style: none;
+    border-left: solid 1px #cccccc;
+    border-bottom: solid 1px #999999;
+    border-top: solid 1px #999999;
+    border-right: solid 1px #999999;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    cursor: pointer;
+    font-size: 11px; }
 
-li.tab a {
-  display: block;
-  float: left;
-  padding: 4px 10px;
-  color: black;
-  text-decoration: none; }
+  li.tab_selected {
+    background-color: white;
+    border-bottom: 1px solid white; }
 
-li.tab a:hover {
-  color: #000099; }
+  li.tab_unselected {
+    background-color: #aaaacc; }
+
+  li.tab_unselected:hover {
+    background-color: #aa7777; }
+
+  li.tab a {
+    display: block;
+    float: left;
+    padding: 4px 10px;
+    color: black;
+    text-decoration: none; }
+
+  li.tab a:hover {
+    color: #000099; } }
+
+@media print, handheld {
+  .tabbed_panel ul.tabs, .tabbed_panel ul.tabs li {
+    display: none;
+    visibility: hidden; }
+  .tabbed_panel .pane_unselected {
+    display: block; } }
