@@ -30,9 +30,16 @@ The above command installs CSS stylesheet into public/stylesheets and a prototyp
 javascript into public/javascripts.   Pass '--css=sass' to  instead copy a SASS version to public/stylesheets/sass.   Pass '--js=jquery' to copy the jquery javascript instead of the prototype.
 Pass --css
 
-And include the js in your application layout:
- For Prototype: <%= javascript_include_tag 'logical_tabs_prototype.js' %>
- For jQuery: <%= javascript_include_tag 'logical_tabs_jquery.js' %>
+Include the css in your application layout:
+  <%= stylesheet_include_tag 'logical_tabs', :media => :all %>
+
+Note that the :media => :all is important, because the LT stylesheet contains directives for print
+and handhelds as well as screen.   The default LT stylesheets will eliminate the tabs and display
+all of the panels in order with headers so that the full content is visible during print.
+
+Include the js in your application layout:
+  For Prototype: <%= javascript_include_tag 'logical_tabs_prototype.js' %>
+  For jQuery: <%= javascript_include_tag 'logical_tabs_jquery.js' %>
 
 Note that both of the above javascripts include dependencies; logical_tabs_prototype.js includes a copy of Lalit Patel's CookieJar (http://www.lalit.org/lab/jsoncookies ) and logical_tabs_jquery.js includes a copy of Jon Combe's Jookie.   If you already have one of those libraries installed in your application, you'll want to strip the duplicate out of this plugin's js file.
 
