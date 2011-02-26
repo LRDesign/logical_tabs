@@ -47,6 +47,7 @@ module LogicalTabs
       else
         @tabs << tab
       end
+      return nil
     end
 
     # Render a UL containing all the tabs as LIs.   Which tab is
