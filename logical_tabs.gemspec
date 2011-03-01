@@ -10,11 +10,13 @@ SPEC = Gem::Specification.new do |spec|
   spec.date = "2011-02-15"
   spec.summary = "Tabbed panel helper tool for Rails"
   spec.description = <<-EndDescription
-    LogicalTabs assists in the creation of a semantic
-    HTML markup for a tabbed panel UI setup that will be reasonable
-    and functional when JavaScript is unavaliable and has sensible default
-    print styling.  JavaScript is provided for use with either jQuery or
-    Prototype.
+    LogicalTabs assists in the creation of a tabbed panel UI for Rails apps
+    with several advantages.   A Rails helper generates the tedious (but
+    semantically clean) HTML structures for you.  Tab selection persists across
+    page loads, the page is functional when JavaScript and/or CSS are
+    unavaliable.  Sensible default print styling allows printouts
+    to show all the panel content.  JavaScript is provided for use with
+    either jQuery or Prototype.
   EndDescription
 
   spec.email = "evan@lrdesign.com"
