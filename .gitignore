@@ -1,6 +1,8 @@
 spec/**/*.log
 .sass-cache*
-*~
+*.gem
 _MTN
 _MTN/
 .mtn*
+*~
+#*
