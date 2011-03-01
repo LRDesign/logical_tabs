@@ -1,19 +1,19 @@
 %h1 Test Haml
 
-= create_tabbed_panel do |tabbed_panel|
-  - tabbed_panel.add_tab("Tab One") do
+= tabbed_panel do |tp|
+  - tp.add_tab("Tab One") do
     Content for Tab One
 
-  - tabbed_panel.add_tab("Tab Two") do
+  - tp.add_tab("Tab Two") do
     Content for Tab Two
 
-  - tabbed_panel.add_tab("Tab Three") do
+  - tp.add_tab("Tab Three") do
     %p Content for Tab Three
 
-  - tabbed_panel.add_tab("Tab Four", :content => "Content for Tab Four".html_safe)
+  - tp.add_tab("Tab Four", :content => "Content for Tab Four".html_safe)
 
   - unsafe = "<script>unsafe!</script>"
-  - tabbed_panel.add_tab("Tab Foo", :content => unsafe)
+  - tp.add_tab("Tab Foo", :content => unsafe)
 
-  - tabbed_panel.add_tab("Tab Bar") do
+  - tp.add_tab("Tab Bar") do
     = unsafe
