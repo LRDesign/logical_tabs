@@ -1,12 +1,13 @@
 == LogicalTabs
 
 LogicalTabs is a Rails gem for generating a tabbed panel interface.  It has a couple of advantages over existing solutions (like the tabs item in JQuery UI, or the old Rails plugin railstabbedpanel):
-• Tabs are persistent across page loads.   Reload a page and the tab you had selected is still selected.
-• Rails helper to write the HTML for you and keep the IDs of all the elements involved straight.   Less HTML for you to write and manage.
-• If you create multiple tabbed panels on one page, the helper will automatically increment a suffix on the element's ID to keep them distinct.
-• Unobtrusive javascript on simple markup.
-• Compatible with both Prototype and jQuery.
-• HTML helpers compatible with both ERB and HAML, resistant to future changes in ActionView::Base and HAML.
+* Tabs are persistent across page loads.   Reload a page and the tab you had selected is still selected.
+* Rails helper to write the HTML for you and keep the IDs of all the elements involved straight.   Less HTML for you to write and manage.
+* Output designed to print well (with stacked panels) and display comprehensibly if CSS and JS are not available.
+* If you create multiple tabbed panels on one page, the helper will automatically increment a suffix on the element's ID to keep them distinct.
+* Unobtrusive javascript on simple markup.
+* Compatible with both Prototype and jQuery.
+* HTML helpers compatible with both ERB and HAML, resistant to future changes in ActionView::Base and HAML.
 
 Note: jQuery compatibility is a bit of a weekend hack.  In particular, it was written primarily for Prototype, and the jQuery version of the javasscript is a quick hack of the prototype code to make it work in jQuery.  It does work, but is not a proper jQuery plugin and doesn't talk to jQueryUI at all.   I do plan to clean this up for future releases, but am happy to accept contributions from anyone else who is interested.
 
@@ -45,31 +46,39 @@ Note that both of the above javascripts include dependencies; logical_tabs_proto
 
 == Example Usage
 
-Create new tabbed panels by calling the 'create_tabbed_panel' helper and feeding blocks of content to the 'add_tab' method:
+Create new tabbed panels by calling the 'tabbed_panel' helper and feeding blocks of content to the 'add_tab' method:
 
-  <% create_tabbed_panel do |tabbed_panel| %>
-    <% tabbed_panel.add_tab("Tab One") do %>
+  <%= tabbed_panel do |tp| %>
+    <% tp.add_tab("Tab One") do %>
       Content for Tab One
     <% end %>
-    <% tabbed_panel.add_tab("Tab Two") do %>
+    <% tp.add_tab("Tab Two") do %>
       Content for Tab Two
     <% end %>
-    <% tabbed_panel.add_tab("Tab Three") do %>
+    <% tp.add_tab("Tab Three") do %>
       <p>Content for Tab Three</p>
     <% end %>
   <% end %>
 
 You can override the ID or text used for a tab:
-  <% tabbed_panel.add_tab("Tab Four", :base_id => 'my_tab', :text => "Tab Text") do %>
+  <% tp.add_tab("Tab Four", :base_id => 'my_tab', :text => "Tab Text") do %>
     Content for Tab four.
   <% end %>
 
 You can also specify pane content rather than pass a block:
-  <% tabbed_panel.add_tab("Tab Four", :content => "Content for tab four") %>
+  <% tp.add_tab("Tab Four", :content => "Content for tab four") %>
 
 In each case, the helper will generate a DIV that contains a UL of the tabs (each tab in an LI) and a set of DIVs containing each of the content panes.
 
 See more examples (including both ERB and HAML formatting) in the logical_tabs_demo example project: http://github.com/LRDesign/logical_tabs_demo
+
+== Print compatibility
+
+LogicalTabs includes an <h3> in each pane with the same text as that pane's <li> tab.   This header has class '.printonly', and the default stylesheet eliminates it for screen and projection media.  The default stylesheet also removes the <ul class='tabs'> from the page for print media.
+
+The effect is that, when printed, the content of each pane appears, stacked in source order, with an associated header explaining the content.  This makes for a much happier experience for the printout user.
+
+This can also be leveraged with an @media = 'handheld' stylesheet to give stacked panels on mobile devices that don't support the full screen simulation common on modern smartphones.
 
 == License
 
@@ -83,10 +92,15 @@ Design and Development:
   Logical Reality Design, Altadena, California
   Evan Dorn, Lead Developer
 
+== Future Plans
+
+NinjaScript compatibility coming soon.
+
 == Version History
 
-0.8.0 (February 25, 2011)
-* Released Rails 3 gem version.
+0.8.0 (March 1, 2011)
+* Released Rails 3-compatible version as a gem.
+* Added improved formatting for printout
 
 0.6.2 (June 8, 2010)
 * Removed some unnecessary console debugging calls from the jQuery script and updated this README.
