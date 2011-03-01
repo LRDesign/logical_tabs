@@ -2,13 +2,13 @@ require 'rubygems'
 
 SPEC = Gem::Specification.new do |spec|
   spec.name = "logical_tabs"
-  spec.version = "0.1.0"
+  spec.version = "0.8.0"
 
   spec.required_rubygems_version = Gem::Requirement.new(">= 0") if spec.respond_to? :required_rubygems_version=
 
   spec.authors = ["Evan Dorn", "Judson Lester"]
-  spec.date = "2011-02-15"
-  spec.summary = "Tabbed panel helper tool for Rails"
+  spec.date = "2011-03-01"
+  spec.summary = "Tabbed panel UI tool for Rails"
   spec.description = <<-EndDescription
     LogicalTabs assists in the creation of a tabbed panel UI for Rails apps
     with several advantages.   A Rails helper generates the tedious (but
