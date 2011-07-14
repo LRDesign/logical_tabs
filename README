@@ -24,7 +24,7 @@ Note: this is a bit of a weekend hack.  In particular, it was written primarily 
 == Installing
 
 Install the plugin:
-  script/plugin install https://LRDesign@github.com/LRDesign/logical_tabs.git rails2_plugin
+  script/plugin install https://LRDesign@github.com/LRDesign/logical_tabs.git -r rails2_plugin
 
 Basic stylesheets for the tabs are available in either CSS or SASS.   Copy the one you prefer into your public/stylesheets directory:
   cp vendor/plugins/logical_tabs/stylesheets/tabbed_panel.css public/stylesheets/
